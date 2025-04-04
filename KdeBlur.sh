@@ -1,8 +1,8 @@
 #!/bin/bash
 declare -A processed_windows  # 使用关联数组存储已处理的窗口ID
 
-# 排除桌面背景和桌面程序
-exclude_processes=("plasmashell" "plasma-desktop" "dde-desktop")
+# 排除桌面背景、桌面程序和dock栏
+exclude_processes=("plasmashell" "plasma-desktop" "dde-desktop" "latte-dock" "lattedock" "dde-dock")
 
 while true; do
     sleep 0.5  # 减少CPU使用率
@@ -29,8 +29,8 @@ while true; do
         
         current_windows[$id]=1  # 标记当前窗口为存在
         if [ -z "${processed_windows[$id]}" ]; then  # 检查窗口ID是否未被处理
-            # 设置窗口透明度(固定0.666透明度值)
-            xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xAAAAAAAA
+            # 设置窗口透明度(固定0.8透明度值)
+            xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xCCCCCCCC
             
             # 设置窗口模糊效果
             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $id
