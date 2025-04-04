@@ -1,6 +1,8 @@
 #!/bin/bash
 declare -A processed_windows  # 使用关联数组存储已处理的窗口ID
 
+# xprop | grep -E 'WM_CLASS|_NET_WM_NAME|_NET_WM_WINDOW_TYPE'
+
 # 排除桌面背景、桌面程序和dock栏
 exclude_processes=("plasmashell" "plasma-desktop" "dde-desktop" "latte-dock" "lattedock" "dde-dock")
 
