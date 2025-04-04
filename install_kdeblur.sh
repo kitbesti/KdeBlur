@@ -20,9 +20,23 @@ cat > ~/.config/autostart/kdeblur.desktop <<EOF
 Type=Application
 Name=KDE Blur Effect
 Exec=/usr/local/bin/kdeblur
+Icon=preferences-desktop-effects
 X-GNOME-Autostart-enabled=true
 OnlyShowIn=KDE;
 EOF
 
+# 创建全局应用程序菜单项
+echo "创建应用程序菜单项..."
+sudo tee /usr/share/applications/kdeblur.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=KDE Blur Control
+Comment=Control window blur effects
+Exec=/usr/local/bin/kdeblur
+Icon=preferences-desktop-effects
+Categories=Utility;
+Terminal=false
+EOF
+
 echo "安装完成！脚本将在下次登录时自动启动。"
-echo "如需立即运行，请执行: /usr/local/bin/kdeblur"
+echo "可以在应用程序菜单中找到KDE Blur Control项"
