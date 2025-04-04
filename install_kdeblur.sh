@@ -17,7 +17,8 @@ echo "创建systemd服务..."
 sudo tee /etc/systemd/system/kdeblur.service <<EOF
 [Unit]
 Description=KDE Window Blur Effect
-After=graphical-session.target
+After=network.target
+Wants=display-manager.service
 
 [Service]
 Environment="DISPLAY=:0"
@@ -28,7 +29,7 @@ RestartSec=5
 User=$USER
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=multi-user.target
 EOF
 
 # 启用并启动服务
