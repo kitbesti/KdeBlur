@@ -4,7 +4,7 @@ declare -A processed_windows  # 使用关联数组存储已处理的窗口ID
 # xprop | grep -E 'WM_CLASS|_NET_WM_NAME|_NET_WM_WINDOW_TYPE'
 
 # 排除桌面背景、桌面程序和dock栏
-exclude_processes=("plasmashell" "plasma-desktop" "dde-desktop" "latte-dock" "lattedock" "dde-dock")
+exclude_processes=("plasmashell" "plasma-desktop" "dde-desktop" "latte-dock" "lattedock" "dde-dock" "dde-shell")
 
 while true; do
     sleep 0.5  # 减少CPU使用率
