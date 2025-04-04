@@ -13,7 +13,8 @@ while true; do
         current_windows[$id]=1  # 标记当前窗口为存在
         if [ -z "${processed_windows[$id]}" ]; then  # 检查窗口ID是否未被处理
             # 设置窗口透明度
-            xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY $(printf 0x%x $((${OPACITY/./}*0xffffffff/100)))
+            OPACITY_HEX=$(printf "0x%x" $(echo "$OPACITY * 0xffffffff / 1" | bc))
+            xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY $OPACITY_HEX
             
             # 设置窗口模糊效果
             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $id
