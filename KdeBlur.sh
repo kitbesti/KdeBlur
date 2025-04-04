@@ -30,7 +30,15 @@ while true; do
         fi
         
         current_windows[$id]=1  # 标记当前窗口为存在
-        if [ -z "${processed_windows[$id]}" ]; then  # 检查窗口ID是否未被处理
+        
+        # 检查窗口是否已有模糊效果
+        current_opacity=$(xprop -id $id _NET_WM_WINDOW_OPACITY 2>/dev/null | awk -F' = ' '{print $2}')
+        current_blur=$(xprop -id $id _KDE_NET_WM_BLUR_BEHIND_REGION 2>/dev/null | awk -F' = ' '{print $2}')
+        
+        # 如果效果未设置或已改变，则重新应用
+        if [[ -z "${processed_windows[$id]}" || 
+              "$current_opacity" != "0xCCCCCCCC" || 
+              "$current_blur" != "0" ]]; then
             # 设置窗口透明度(固定0.8透明度值)
             xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xCCCCCCCC
             
