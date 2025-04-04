@@ -12,21 +12,23 @@ echo "部署KDE Blur脚本到/usr/local/bin..."
 sudo cp KdeBlur.sh /usr/local/bin/kdeblur
 sudo chmod +x /usr/local/bin/kdeblur
 
-# 创建systemd用户服务
-echo "创建systemd用户服务..."
-#mkdir -p /etc/systemd/system/
-cat > /etc/systemd/system/kdeblur.service <<EOF
+# 创建systemd系统服务
+echo "创建systemd服务..."
+sudo tee /etc/systemd/system/kdeblur.service <<EOF
 [Unit]
 Description=KDE Window Blur Effect
 After=graphical-session.target
 
 [Service]
+Environment="DISPLAY=:0"
+Environment="XAUTHORITY=/home/\$USER/.Xauthority"
 ExecStart=/usr/local/bin/kdeblur
 Restart=always
 RestartSec=5
+User=$USER
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
 EOF
 
 # 启用并启动服务
