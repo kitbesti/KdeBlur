@@ -39,11 +39,11 @@ while true; do
         if [[ -z "${processed_windows[$id]}" || 
               "$current_opacity" != "0xCCCCCCCC" || 
               "$current_blur" != "0" ]]; then
-            # 设置窗口透明度(固定0.8透明度值)
-            xprop -id $id -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xCCCCCCCC
-            
             # 设置窗口模糊效果
             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $id
+
+            # 设置窗口透明度(固定0.8透明度值)
+            xprop -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xCCCCCCCC -id $id
             
             processed_windows[$id]=1  # 记录已处理的窗口ID
         fi
